@@ -2,15 +2,15 @@ import { Dropdown } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chart from "react-apexcharts";
+import './App.css';
 
 
-let dataobj = [];
-let dataobj2 = [];
+
 
 function App() {
 
 
-
+  const [dataobj, setDataobj] = useState([]);
   const [asset, setAsset] = useState('eth');
   const [interval1, setInterval1] = useState('15m');
 
@@ -46,17 +46,10 @@ function App() {
             x: json.E,
             y: [json.k.o, json.k.h, json.k.l, json.k.c]
           }
-          let obj2 = {
-            x: json.E,
-            open: json.k.o,
-            close: json.k.c,
-            high: json.k.h,
-            low: json.k.l,
-
-          }
+        
 
           dataobj.push(obj)
-          dataobj2.push(obj2)
+
 
           series1[0].data = dataobj;
           setSeries1(series1);
@@ -70,7 +63,7 @@ function App() {
     };
 
     return () => conn.close();
-  }, [asset, interval1, series1]);
+  }, [asset, interval1, series1,dataobj]);
 
 
 
@@ -101,17 +94,17 @@ function App() {
     <>
 
 
-      <div style={{ display: 'flex', margin: '1rem' }}>
+      <div className='div1' style={{margin: '1rem' }}>
         <div className="mx-2">
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Choose Asset
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu className='dropdown'>
               {
                 ['eth', 'btc', 'sol', 'dot', 'bnb', 'ada'].map(asset => {
-                  return <Dropdown.Item onClick={() => setAsset(asset)}>{names[asset]}</Dropdown.Item>
+                  return <Dropdown.Item onClick={() => {setAsset(asset);setDataobj([])}}>{names[asset]}</Dropdown.Item>
                 }
                 )
 
@@ -128,10 +121,10 @@ function App() {
               Choose Interval
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu className='dropdown'>
               {
                 ['1m', '3m', '5m', '15m'].map(interval => {
-                  return <Dropdown.Item onClick={() => setInterval1(interval)}>{interval}</Dropdown.Item>
+                  return <Dropdown.Item onClick={() => {setInterval1(interval);setDataobj([])}}>{interval}</Dropdown.Item>
                 }
                 )
               }
