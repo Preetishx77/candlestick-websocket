@@ -149,7 +149,7 @@ function App() {
         </div>
       </div>
       <div className="container">
-        <Chart options={options} series={series1} markers={{ size: 0 }} dataLabels={{ enabled: false }} type="candlestick" height={550} />
+        <Chart options={options} series={series1} markers={{ size: 0 }} dataLabels={{ enabled: false }} type="candlestick" height={549} />
 
       </div>
       {
